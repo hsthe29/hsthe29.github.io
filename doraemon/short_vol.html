@@ -5,35 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 </head>
 <body>
     <div class="navbar">
         <a href="thehs29/doraemon/">Home</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <span>
+            <a id="zoom-in"><i class="fas fa-search-plus"></i></a>
+            <a id="zoom-out"><i class="fas fa-search-minus"></i></a>
+        </span>
     </div>
-    <div class="main">
+    <div id="chapter-nav" class="overlay">
+        <a class="close-chapter-nav" onclick="closeNav()">&times;</a>
+        <div id="chapter-list" class="overlay-content">
+        </div>
+    </div>
+    <span id="span_nav" class="span-nav" onclick="openNav()">&#9776;</span>
+    <div class="main" id="main-page">
         <div class="image-container" id="image_container"></div>
     </div>
     <script>
-        function load_images(vol_id) {
-            fetch(`./data/short_story/vol_${vol_id}.json`)
+        const org_width = 191;
+        const org_height = 300;
+        const max_width = 1200;
+        const min_width = 400;
+        var cur_height = 1500;
+        var cur_width = 955;
+        function load_data(vol_id) {
+            fetch(`https://drive.google.com/uc?id=1cvB6uycXArkJehJQGKZMuMc2O2-FucfR`)
             .then(response => response.json())
             .then(data => {
+                let vol_index = data.index;
+                let chapter_pages = vol_index.map(obj => parseInt(Object.keys(obj)[0]));
+                let chapters = vol_index.map(obj => Object.values(obj)[0]);
+                console.log(vol_index)
+                const link_container = document.getElementById("chapter-list");
+                for (let i = 0; i < chapters.length; i++) {
+                    const link = document.createElement("a");
+                    link.setAttribute("href", `#chapter-${i+1}`);
+                    link.setAttribute("onclick", "closeNav()");
+                    link.text = `Chapter ${i+1}: ${chapters[i]}`
+                    link_container.appendChild(link);
+                }
+                const link = document.createElement("a");
+                link.text = " "
+                link_container.appendChild(link);
+
+                let vol_images = data.base64; 
                 const image_container = document.getElementById("image_container");
-                for(page of data) {
+                let index_id = 0;
+                let url_id = 0;
+                for(let i = 0; i < vol_images.length; i++) {
                     const image = document.createElement("img");
-                    image.src = `data:image/png;base64, ${page["base64"]}`;
+                    image.src = `data:image/png;base64, ${vol_images[i]}`;
+                    if (i == chapter_pages[index_id]-1) {
+                        image.setAttribute("id", `chapter-${index_id+1}`);
+                        index_id++;
+                    }
+                    image.style.width = "955px";
+                    image.style.height = "1500px";
+                    // image.classList.add("page_images");
                     image_container.appendChild(image);
                 }
             })
             .catch(error => console.error('Error:', error));
         }
-        var queryString = window.location.search;
-        var urlParams = new URLSearchParams(queryString);
-        var vol_id = urlParams.get('vol_id');
+
+        function resize(d_width) {
+            let old_position = window.pageYOffset || document.documentElement.scrollTop;
+            let num_pages = parseInt(old_position/(cur_height + 10));
+            console.log(old_position);
+            let new_width = cur_width + d_width;
+            if (new_width > max_width || new_width < min_width)
+                return;
+            let new_height = new_width*cur_height/cur_width;
+
+            var images = document.getElementById("main-page").getElementsByTagName('img');
+
+            for (var i = 0; i < images.length; i++) {
+                // Thay đổi kích thước của hình ảnh
+                images[i].style.width = `${new_width}px`; // Thay đổi chiều rộng
+                images[i].style.height = `${new_height}px`; // Thay đổi chiều cao
+                if (i < num_pages) {
+                    let new_position = old_position - cur_height + new_height;
+                    window.scrollTo(0, new_position);
+                    old_position = new_position;
+                }
+            }
+            cur_width = new_width;
+            cur_height = new_height;
+        }
+
+        function zoom_in() {
+            resize(10);
+        }
+        function zoom_out() {
+            resize(-10);
+        }
+
+        function openNav() {
+            document.getElementById("chapter-nav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("chapter-nav").style.width = "0%";
+        }
+
+        let queryString = window.location.search;
+        let urlParams = new URLSearchParams(queryString);
+        let vol_id = urlParams.get('vol_id');
         document.title = `Short Doraemon Vol ${vol_id}`;
-        load_images(vol_id);
+        console.log(urlParams.get('#'));
+        load_data(vol_id);
+
+        document.getElementById('zoom-in').addEventListener('mousedown', function() {
+            zoomInterval = setInterval(zoom_in, 20); // Thực hiện hàm zoomIn mỗi 100ms
+        });
+
+        document.getElementById('zoom-out').addEventListener('mousedown', function() {
+            zoomInterval = setInterval(zoom_out, 20); // Thực hiện hàm zoomOut mỗi 100ms
+        });
+
+        document.getElementById('zoom-in').addEventListener('mouseup', function() {
+            clearInterval(zoomInterval); // Dừng lại khi người dùng ngừng nhấn nút
+        });
+
+        document.getElementById('zoom-out').addEventListener('mouseup', function() {
+            clearInterval(zoomInterval); // Dừng lại khi người dùng ngừng nhấn nút
+        });
+
+        document.getElementById('zoom-in').addEventListener('mouseleave', function() {
+            clearInterval(zoomInterval); // Dừng lại khi con trỏ chuột rời khỏi nút
+        });
+
+        document.getElementById('zoom-out').addEventListener('mouseleave', function() {
+            clearInterval(zoomInterval); // Dừng lại khi con trỏ chuột rời khỏi nút
+        });
+
     </script>
 </body>
 </html>
