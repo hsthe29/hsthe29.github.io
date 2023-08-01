@@ -34,12 +34,17 @@
         var cur_height = 1500;
         var cur_width = 955;
 
-        function make_placeholder(seats) {
-            let image_holders = []
+        function make_placeholder(seats, chapter_pages) {
+            let image_holders = [];
+            let index_id = 0;
             const image_container = document.getElementById("image_container");
             for(let i = 0; i < seats; i++) {
                 const image = document.createElement("img");
                 image.setAttribute("alt", `page_${i+1}.jpg`);
+                if (i == chapter_pages[index_id]-1) {
+                    image.setAttribute("id", `chapter-${index_id+1}`);
+                    index_id++;
+                }
                 image_holders.push(image);
                 image_container.appendChild(image);
             }
@@ -62,7 +67,7 @@
                     link.text = `Chapter ${i+1}: ${chapters[i]}`
                     link_container.appendChild(link);
                 }
-                let seats = make_placeholder(total_pages);
+                let seats = make_placeholder(total_pages, chapter_pages);
                 const link = document.createElement("a");
                 link.text = " "
                 link_container.appendChild(link);
@@ -75,10 +80,6 @@
                     .then((text) => {
                         const image = seats[i];
                         image.src = `data:image/png;base64, ${text}`;
-                        if (i == chapter_pages[index_id]-1) {
-                            image.setAttribute("id", `chapter-${index_id+1}`);
-                            index_id++;
-                        }
                         image.style.width = "955px";
                         image.style.height = "1500px";
                     })
@@ -135,7 +136,7 @@
         let urlParams = new URLSearchParams(queryString);
         let vol_id = urlParams.get('vol_id');
         document.title = `Short Doraemon Vol ${vol_id}`;
-        console.log(`Vol ${vol_id}`);
+        console.log(`Reading Vol ${vol_id}`);
         load_data(vol_id);
 
         document.getElementById('zoom-in').addEventListener('mousedown', function() {
