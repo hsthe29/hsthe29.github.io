@@ -51,7 +51,6 @@
             .then(response => response.json())
             .then(data => {
                 total_pages = data.pages;
-                console.log("hi", total_pages);
                 let chapter_obj = data["chapter"]
                 let chapter_pages = chapter_obj.map(obj => parseInt(Object.keys(obj)[0]));
                 let chapters = chapter_obj.map(obj => Object.values(obj)[0]);
