@@ -33,6 +33,18 @@
         const min_width = 400;
         var cur_height = 1500;
         var cur_width = 955;
+
+        function make_placeholder(seats) {
+            let image_holders = []
+            const image_container = document.getElementById("image_container");
+            for(let i = 0; i < seats; i++) {
+                const image = document.createElement("img");
+                image.setAttribute("alt", `page_${i+1}.jpg`);
+                image_holders.push(image);
+                image_container.appendChild(image);
+            }
+            return image_holders;
+        }
         function load_data(vol_id) {
             let total_pages = 0
             fetch("./data/short_story/vol_1/chapter.json")
@@ -51,18 +63,18 @@
                     link.text = `Chapter ${i+1}: ${chapters[i]}`
                     link_container.appendChild(link);
                 }
+                let seats = make_placeholder(total_pages);
                 const link = document.createElement("a");
                 link.text = " "
                 link_container.appendChild(link);
                 const image_container = document.getElementById("image_container");
                 let index_id = 0;
                 let url_id = 0;
-                console.log(total_pages);
                 for(let i = 0; i < total_pages; i++) {
                     fetch(`./data/short_story/vol_1/page_${i}.txt`)
                     .then((res) => res.text())
                     .then((text) => {
-                        const image = document.createElement("img");
+                        const image = seats[i];
                         image.src = `data:image/png;base64, ${text}`;
                         if (i == chapter_pages[index_id]-1) {
                             image.setAttribute("id", `chapter-${index_id+1}`);
@@ -70,7 +82,6 @@
                         }
                         image.style.width = "955px";
                         image.style.height = "1500px";
-                        // image.classList.add("page_images");
                         image_container.appendChild(image);
                     })
                     .catch((e) => console.error(e));
@@ -120,15 +131,6 @@
         function closeNav() {
             document.getElementById("chapter-nav").style.width = "0%";
         }
-
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET', 'https://drive.google.com/uc?id=1cvB6uycXArkJehJQGKZMuMc2O2-FucfR', true);
-        // xhr.onreadystatechange = function () {
-        // if(xhr.readyState === 4 && xhr.status === 200) {
-        //     console.log(xhr.responseText);
-        // }
-        // }
-        // xhr.send();
 
 
         let queryString = window.location.search;
