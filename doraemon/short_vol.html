@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="thehs29/doraemon/">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="main">
+        <div class="image-container" id="image_container"></div>
+    </div>
+    <script>
+        function load_images(vol_id) {
+            fetch(`./data/short_story/vol_${vol_id}.json`)
+            .then(response => response.json())
+            .then(data => {
+                const image_container = document.getElementById("image_container");
+                for(page of data) {
+                    const image = document.createElement("img");
+                    image.src = `data:image/png;base64, ${page["base64"]}`;
+                    image_container.appendChild(image);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var vol_id = urlParams.get('vol_id');
+        document.title = `Short Doraemon Vol ${vol_id}`;
+        load_images(vol_id);
+    </script>
+</body>
+</html>
