@@ -34,12 +34,15 @@
         var cur_height = 1500;
         var cur_width = 955;
         function load_data(vol_id) {
-            fetch("./data/short_story/vol_1.json")
+            let total_pages = 0
+            fetch("./data/short_story/vol_1/chapter.json")
             .then(response => response.json())
             .then(data => {
-                let vol_index = data.index;
-                let chapter_pages = vol_index.map(obj => parseInt(Object.keys(obj)[0]));
-                let chapters = vol_index.map(obj => Object.values(obj)[0]);
+                total_pages = data.pages;
+                console.log("hi", total_pages);
+                let chapter_obj = data["chapter"]
+                let chapter_pages = chapter_obj.map(obj => parseInt(Object.keys(obj)[0]));
+                let chapters = chapter_obj.map(obj => Object.values(obj)[0]);
                 const link_container = document.getElementById("chapter-list");
                 for (let i = 0; i < chapters.length; i++) {
                     const link = document.createElement("a");
@@ -51,31 +54,37 @@
                 const link = document.createElement("a");
                 link.text = " "
                 link_container.appendChild(link);
-
-                let vol_images = data.base64; 
                 const image_container = document.getElementById("image_container");
                 let index_id = 0;
                 let url_id = 0;
-                for(let i = 0; i < vol_images.length; i++) {
-                    const image = document.createElement("img");
-                    image.src = `data:image/png;base64, ${vol_images[i]}`;
-                    if (i == chapter_pages[index_id]-1) {
-                        image.setAttribute("id", `chapter-${index_id+1}`);
-                        index_id++;
-                    }
-                    image.style.width = "955px";
-                    image.style.height = "1500px";
-                    // image.classList.add("page_images");
-                    image_container.appendChild(image);
+                console.log(total_pages);
+                for(let i = 0; i < total_pages; i++) {
+                    fetch(`./data/short_story/vol_1/page_${i}.txt`)
+                    .then((res) => res.text())
+                    .then((text) => {
+                        const image = document.createElement("img");
+                        image.src = `data:image/png;base64, ${text}`;
+                        if (i == chapter_pages[index_id]-1) {
+                            image.setAttribute("id", `chapter-${index_id+1}`);
+                            index_id++;
+                        }
+                        image.style.width = "955px";
+                        image.style.height = "1500px";
+                        // image.classList.add("page_images");
+                        image_container.appendChild(image);
+                    })
+                    .catch((e) => console.error(e));
                 }
             })
             .catch(error => console.error('Error:', error));
+
+            
         }
 
         function resize(d_width) {
             let old_position = window.pageYOffset || document.documentElement.scrollTop;
             let num_pages = parseInt(old_position/(cur_height + 10));
-            console.log(old_position);
+            
             let new_width = cur_width + d_width;
             if (new_width > max_width || new_width < min_width)
                 return;
