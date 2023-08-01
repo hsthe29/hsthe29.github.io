@@ -47,7 +47,7 @@
         }
         function load_data(vol_id) {
             let total_pages = 0
-            fetch("./data/short_story/vol_1/chapter.json")
+            fetch(`./data/short_story/vol_${vol_id}/chapter.json`)
             .then(response => response.json())
             .then(data => {
                 total_pages = data.pages;
@@ -81,7 +81,6 @@
                         }
                         image.style.width = "955px";
                         image.style.height = "1500px";
-                        image_container.appendChild(image);
                     })
                     .catch((e) => console.error(e));
                 }
@@ -136,7 +135,7 @@
         let urlParams = new URLSearchParams(queryString);
         let vol_id = urlParams.get('vol_id');
         document.title = `Short Doraemon Vol ${vol_id}`;
-        console.log(urlParams.get('#'));
+        console.log(`Vol ${vol_id}`);
         load_data(vol_id);
 
         document.getElementById('zoom-in').addEventListener('mousedown', function() {
