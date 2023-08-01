@@ -34,13 +34,12 @@
         var cur_height = 1500;
         var cur_width = 955;
         function load_data(vol_id) {
-            fetch(`https://drive.google.com/uc?id=1cvB6uycXArkJehJQGKZMuMc2O2-FucfR`)
+            fetch("./data/short_story/vol_1.json")
             .then(response => response.json())
             .then(data => {
                 let vol_index = data.index;
                 let chapter_pages = vol_index.map(obj => parseInt(Object.keys(obj)[0]));
                 let chapters = vol_index.map(obj => Object.values(obj)[0]);
-                console.log(vol_index)
                 const link_container = document.getElementById("chapter-list");
                 for (let i = 0; i < chapters.length; i++) {
                     const link = document.createElement("a");
@@ -112,6 +111,16 @@
         function closeNav() {
             document.getElementById("chapter-nav").style.width = "0%";
         }
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET', 'https://drive.google.com/uc?id=1cvB6uycXArkJehJQGKZMuMc2O2-FucfR', true);
+        // xhr.onreadystatechange = function () {
+        // if(xhr.readyState === 4 && xhr.status === 200) {
+        //     console.log(xhr.responseText);
+        // }
+        // }
+        // xhr.send();
+
 
         let queryString = window.location.search;
         let urlParams = new URLSearchParams(queryString);
