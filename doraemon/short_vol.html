@@ -7,15 +7,11 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 </head>
-<body>
+<body class="dark-background">
     <div class="navbar">
         <a href="thehs29/doraemon/">Home</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <span>
-            <a id="zoom-in"><i class="fas fa-search-plus"></i></a>
-            <a id="zoom-out"><i class="fas fa-search-minus"></i></a>
-        </span>
     </div>
     <div id="chapter-nav" class="overlay">
         <a class="close-chapter-nav" onclick="closeNav()">&times;</a>
@@ -25,15 +21,19 @@
     <span id="span_nav" class="span-nav" onclick="openNav()">&#9776;</span>
     <div class="main" id="main-page">
         <div class="image-container" id="image_container"></div>
+        <div class="zoom">
+            <img src="../icon/zoom_in.png" width="32" height="auto" id="zoom-in" onclick="zoom_in()"/>
+            <img src="../icon/zoom_out.png" width="32" height="auto" id="zoom-out" onclick="zoom_out()"/>
+        </div>
     </div>
     <script>
+        const screen_width = window.innerWidth;
         const org_width = 191;
         const org_height = 300;
-        const max_width = 1200;
-        const min_width = 400;
-        var cur_height = 1500;
-        var cur_width = 955;
-
+        const max_width = 0.9*screen_width;
+        const min_width = 0.25*screen_width;
+        var cur_width = 0.45*screen_width;
+        var cur_height = org_height*cur_width/org_width;
         function make_placeholder(seats, chapter_pages) {
             let image_holders = [];
             let index_id = 0;
@@ -75,13 +75,13 @@
                 let index_id = 0;
                 let url_id = 0;
                 for(let i = 0; i < total_pages; i++) {
-                    fetch(`./data/short_story/vol_1/page_${i}.txt`)
+                    fetch(`./data/short_story/vol_${vol_id}/page_${i}.txt`)
                     .then((res) => res.text())
                     .then((text) => {
                         const image = seats[i];
                         image.src = `data:image/png;base64, ${text}`;
-                        image.style.width = "955px";
-                        image.style.height = "1500px";
+                        image.style.width = `${cur_width}px`;
+                        image.style.height = `${cur_height}px`;
                     })
                     .catch((e) => console.error(e));
                 }
@@ -100,7 +100,7 @@
                 return;
             let new_height = new_width*cur_height/cur_width;
 
-            var images = document.getElementById("main-page").getElementsByTagName('img');
+            var images = document.getElementById("image_container").getElementsByTagName('img');
 
             for (var i = 0; i < images.length; i++) {
                 // Thay đổi kích thước của hình ảnh
