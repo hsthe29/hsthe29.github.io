@@ -15,15 +15,35 @@
     table, th, td {
         border:1px solid black;
     }
+    /* td {
+        font-size: 20px;
+        text-align: center;
+        vertical-align: middle;
+    } */
+    /* table {
+        width: 700px; 
+        border-collapse: collapse;
+    } */
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 90%;
+        border: 1px solid #ddd;
+        /* border-collapse: collapse; */
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
     td {
         font-size: 20px;
         text-align: center;
         vertical-align: middle;
     }
-    table {
-        width: 700px; /* Set the desired width for the table */
-        border-collapse: collapse;
-    }
+
+    tr:nth-child(even){background-color: #f2f2f2}
   </style>
 </head>
 
@@ -35,26 +55,47 @@
   <div>
     <div id="index" class="index">
         <h1>Danh sách tập</h1>
+
         <table id="index-table">
-            <tr>
-                <th>STT</th>
-                <th>Tên tập</th>
-            </tr>
+            
         </table>
     </div>
     <hr class="rounded">
   </div>
   <script>
-    function addRow(stt, vol_name, href) {
+    const screen_width = window.innerWidth;
+    const vol_image_width = screen_width*0.1;
+    const min_width = 64;
+    const image_width = Math.max(vol_image_width, min_width);
+    
+    function addCell(rows, cellsPerRow=5) {
         var table = document.getElementById("index-table");
-        var row = table.insertRow();
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        const link = document.createElement("a");
-        link.setAttribute("href", href);
-        cell2.appendChild(link);
-        cell1.innerHTML = stt;
-        link.innerHTML = vol_name;
+        
+        let cells = []
+        for(let r = 0; r < rows; r++) {
+            var row = table.insertRow();
+            for(let i = 0; i < cellsPerRow; i++) {
+                let id = r*cellsPerRow + i + 1;
+                // console.log(id);
+                var cell = row.insertCell(i);
+                const link = document.createElement("a");
+                link.setAttribute("id", `vol-${id}`);
+                cell.appendChild(link);
+                cells.push(cell);
+            }
+        }
+        return cells;
+    }
+
+    function fillCell(id, cell, name, href) {
+        let a = cell.querySelector("a");
+        a.innerText = name;
+        a.setAttribute("href", href);
+        const img = document.createElement("img");
+        img.setAttribute("src", `../images/short/vol_${id + 1}.png`);
+        img.style.width = `${image_width}px`;
+        img.style.height = "auto";
+        a.appendChild(img);
     }
 
     let queryString = window.location.search;
@@ -65,13 +106,14 @@
     if (type == "short") {
         if (dir == "forward") {
             document.title = `Doraemon: 45 tập truyện ngắn đọc xuôi`;
+            let cells = addCell(9);
             fetch("./data/short_story/vol_name.json")
                     .then((response) => response.json())
                     .then((data) => {
                         for (let i = 0; i < data.length; i++) {
                             let name = data[i]["name"];
                             let href = data[i]["href"];
-                            addRow(i+1, name, href);
+                            fillCell(i, cells[i], name, href);
                         }
                     })
                     .catch((e) => console.error(e));
