@@ -86,7 +86,7 @@
 .overlay a {
     padding: 8px;
     text-decoration: none;
-    font-size: 36px;
+    font-size: 25px;
     color: #969494;
     display: block;
     transition: 0.3s;
@@ -102,7 +102,6 @@
     right: 45px;
     font-size: 60px;
     cursor: pointer;
-    /* position: fixed; */
 }
 
 .overlay .close-chapter-nav:hover {
@@ -112,15 +111,13 @@
 .span-nav {
     position: fixed;
     top: 40%;
-    left: 10;
-    transform: translateY(-50%);
-    font-size: 40px;
-    color: #ffffff;
+    transform: translate(-75%, 50%);
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .span-nav:hover {
-    font-weight: bold;
+    transform: translate(-50%, 50%);
 }
 
 .chapter-nav a {

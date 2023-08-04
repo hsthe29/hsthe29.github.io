@@ -15,21 +15,11 @@
     table, th, td {
         border:1px solid black;
     }
-    /* td {
-        font-size: 20px;
-        text-align: center;
-        vertical-align: middle;
-    } */
-    /* table {
-        width: 700px; 
-        border-collapse: collapse;
-    } */
     table {
         border-collapse: collapse;
         border-spacing: 0;
         width: 90%;
         border: 1px solid #ddd;
-        /* border-collapse: collapse; */
     }
 
     th, td {
@@ -38,12 +28,24 @@
     }
 
     td {
-        font-size: 20px;
+        font-size: 18px;
         text-align: center;
         vertical-align: middle;
     }
 
     tr:nth-child(even){background-color: #f2f2f2}
+
+    .vol-container {
+        display: flex; 
+        flex-direction: column;
+    }
+    .vol-cover {
+        display: block; 
+        margin-top: auto; 
+        margin-left: auto; 
+        margin-right: auto;
+        margin-bottom: auto; 
+    }
   </style>
 </head>
 
@@ -63,24 +65,26 @@
     <hr class="rounded">
   </div>
   <script>
-    const screen_width = window.innerWidth;
-    const vol_image_width = screen_width*0.1;
-    const min_width = 64;
-    const image_width = Math.max(vol_image_width, min_width);
+    const screenWidth = window.innerWidth;
+    const volImageWidth = screenWidth*0.1;
+    const minWidth = 64;
+    const imageWidth = Math.max(volImageWidth, minWidth);
     
     function addCell(rows, cellsPerRow=5) {
         var table = document.getElementById("index-table");
-        
         let cells = []
         for(let r = 0; r < rows; r++) {
             var row = table.insertRow();
             for(let i = 0; i < cellsPerRow; i++) {
                 let id = r*cellsPerRow + i + 1;
-                // console.log(id);
                 var cell = row.insertCell(i);
-                const link = document.createElement("a");
+                const container = document.createElement("a");
+                const link = document.createElement("span");
+                const image = document.createElement("img");
                 link.setAttribute("id", `vol-${id}`);
-                cell.appendChild(link);
+                container.appendChild(link);
+                container.appendChild(image);
+                cell.appendChild(container);
                 cells.push(cell);
             }
         }
@@ -88,26 +92,27 @@
     }
 
     function fillCell(id, cell, name, href) {
-        let a = cell.querySelector("a");
-        a.innerText = name;
-        a.setAttribute("href", href);
-        const img = document.createElement("img");
+        const container = cell.querySelector("a");
+        const volName = cell.querySelector("span");
+        const img = cell.querySelector("img");
+        volName.innerText = name;
+        container.setAttribute("href", href);
+        container.classList.add("vol-container");
         img.setAttribute("src", `../images/short/vol_${id + 1}.png`);
-        img.style.width = `${image_width}px`;
+        img.classList.add("vol-cover");
+        img.style.width = `${imageWidth}px`;
         img.style.height = "auto";
-        a.appendChild(img);
     }
 
     let queryString = window.location.search;
     let urlParams = new URLSearchParams(queryString);
-    let type = urlParams.get('type');
-    let dir = urlParams.get('dir');
-    console.log(type, dir);
+    let type = urlParams.get("type");
+    let forward = urlParams.get("forward");
     if (type == "short") {
-        if (dir == "forward") {
+        if (forward == "true") {
             document.title = `Doraemon: 45 tập truyện ngắn đọc xuôi`;
             let cells = addCell(9);
-            fetch("./data/short_story/vol_name.json")
+            fetch("./data/forward/short_story/vol_name.json")
                     .then((response) => response.json())
                     .then((data) => {
                         for (let i = 0; i < data.length; i++) {
@@ -118,15 +123,15 @@
                     })
                     .catch((e) => console.error(e));
         } 
-        else if (dir == "backward") {
+        else if (forward == "false") {
             document.title = `Doraemon: 45 tập truyện ngắn đọc ngược`;
         }
     }
     else if (type == "long") {
-        if (dir == "forward") {
+        if (forward == "true") {
             document.title = `Doraemon: 24 tập truyện dài đọc xuôi`;
         } 
-        else if (dir == "backward") {
+        else if (forward == "false") {
             document.title = `Doraemon: 24 tập truyện dài đọc ngược`;
         }
     }

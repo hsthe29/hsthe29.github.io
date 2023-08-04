@@ -9,8 +9,8 @@
 </head>
 <body class="dark-background">
     <div class="navbar">
-        <a href="thehs29/doraemon/">Home</a>
-        <a href="#about">About</a>
+        <a href="../index.html" id="home">Home</a>
+        <a id="list">&#9776;</a>
         <a href="#contact">Contact</a>
     </div>
     <div id="chapter-nav" class="overlay">
@@ -18,7 +18,9 @@
         <div id="chapter-list" class="overlay-content">
         </div>
     </div>
-    <span id="span_nav" class="span-nav" onclick="openNav()">&#9776;</span>
+    <div id="open-chapter-nav" class="span-nav">
+        <img src="../icon/menu-list.png" height="50" onclick="openNav()"/>
+    </div>
     <div class="main" id="main-page">
         <div class="image-container" id="image_container"></div>
         <div class="zoom">
@@ -27,93 +29,75 @@
         </div>
     </div>
     <script>
-        const screen_width = window.innerWidth;
-        const org_width = 191;
-        const org_height = 300;
-        const max_width = 0.9*screen_width;
-        const min_width = 0.25*screen_width;
-        var cur_width = 0.45*screen_width;
-        var cur_height = org_height*cur_width/org_width;
-        function make_placeholder(seats, chapter_pages) {
-            let image_holders = [];
-            let index_id = 0;
+        const screenWidth = window.innerWidth;
+        const orgWidth = 191;
+        const orgHeight = 300;
+        const maxWidth = 0.9*screenWidth;
+        const minWidth = 0.25*screenWidth;
+        var curWidth = 0.45*screenWidth;
+        var curHeight = orgHeight*curWidth/orgWidth;
+        function load_images(subdir, volID, totalPages, chapterPages) {
+            let fragmentID = 0;
             const image_container = document.getElementById("image_container");
-            for(let i = 0; i < seats; i++) {
+            for(let i = 0; i < totalPages; i++) {
                 const image = document.createElement("img");
-                image.setAttribute("alt", `page_${i+1}.jpg`);
-                if (i == chapter_pages[index_id]-1) {
-                    image.setAttribute("id", `chapter-${index_id+1}`);
-                    index_id++;
+                image.setAttribute("alt", `page-${i+1}.jpg`);
+                if (i == chapterPages[fragmentID] - 1) {
+                    image.setAttribute("id", `chapter-${fragmentID + 1}`);
+                    fragmentID++;
                 }
-                image_holders.push(image);
+                image.src = `./data/${subdir}/short_story/vol_${volID}/page-${i}.webp`;
+                image.style.width = `${curWidth}px`;
+                image.style.height = `${curHeight}px`;
                 image_container.appendChild(image);
             }
-            return image_holders;
         }
-        function load_data(vol_id) {
-            let total_pages = 0
-            fetch(`./data/short_story/vol_${vol_id}/chapter.json`)
+        function load_data(subdir, volID) {
+            fetch(`./data/${subdir}/short_story/vol_${volID}/chapter.json`)
             .then(response => response.json())
             .then(data => {
-                total_pages = data.pages;
-                let chapter_obj = data["chapter"]
-                let chapter_pages = chapter_obj.map(obj => parseInt(Object.keys(obj)[0]));
-                let chapters = chapter_obj.map(obj => Object.values(obj)[0]);
+                let totalPages = data.pages;
+                let chapterObj = data["chapter"]
+                let chapterPages = chapterObj.map(obj => parseInt(Object.keys(obj)[0]));
+                let chapters = chapterObj.map(obj => Object.values(obj)[0]);
                 const link_container = document.getElementById("chapter-list");
                 for (let i = 0; i < chapters.length; i++) {
                     const link = document.createElement("a");
-                    link.setAttribute("href", `#chapter-${i+1}`);
+                    link.setAttribute("href", `#chapter-${i + 1}`);
                     link.setAttribute("onclick", "closeNav()");
                     link.text = `Chapter ${i+1}: ${chapters[i]}`
                     link_container.appendChild(link);
                 }
-                let seats = make_placeholder(total_pages, chapter_pages);
                 const link = document.createElement("a");
                 link.text = " "
                 link_container.appendChild(link);
-                const image_container = document.getElementById("image_container");
-                let index_id = 0;
-                let url_id = 0;
-                for(let i = 0; i < total_pages; i++) {
-                    fetch(`./data/short_story/vol_${vol_id}/page_${i}.txt`)
-                    .then((res) => res.text())
-                    .then((text) => {
-                        const image = seats[i];
-                        image.src = `data:image/png;base64, ${text}`;
-                        image.style.width = `${cur_width}px`;
-                        image.style.height = `${cur_height}px`;
-                    })
-                    .catch((e) => console.error(e));
-                }
+                load_images(subdir, volID, totalPages, chapterPages);
             })
             .catch(error => console.error('Error:', error));
-
-            
         }
 
-        function resize(d_width) {
-            let old_position = window.pageYOffset || document.documentElement.scrollTop;
-            let num_pages = parseInt(old_position/(cur_height + 10));
+        function resize(deltaWidth) {
+            let oldPosition = window.pageYOffset || document.documentElement.scrollTop;
+            let numPages = parseInt(oldPosition/(curHeight + 10));
             
-            let new_width = cur_width + d_width;
-            if (new_width > max_width || new_width < min_width)
+            let newWidth = curWidth + deltaWidth;
+            if (newWidth > maxWidth || newWidth < minWidth)
                 return;
-            let new_height = new_width*cur_height/cur_width;
+            let newHeight = newWidth*curHeight/curWidth;
 
             var images = document.getElementById("image_container").getElementsByTagName('img');
 
             for (var i = 0; i < images.length; i++) {
-                // Thay đổi kích thước của hình ảnh
-                images[i].style.width = `${new_width}px`; // Thay đổi chiều rộng
-                images[i].style.height = `${new_height}px`; // Thay đổi chiều cao
-                if (i < num_pages) {
-                    let new_position = old_position - cur_height + new_height;
-                    window.scrollTo(0, new_position);
-                    old_position = new_position;
+                images[i].style.width = `${newWidth}px`;
+                images[i].style.height = `${newHeight}px`;
+                if (i < numPages) {
+                    let newPosition = oldPosition - curHeight + newHeight;
+                    window.scrollTo(0, newPosition);
+                    oldPosition = newPosition;
                 }
             }
-            cur_width = new_width;
-            cur_height = new_height;
+            curWidth = newWidth;
+            curHeight = newHeight;
         }
 
         function zoom_in() {
@@ -124,20 +108,25 @@
         }
 
         function openNav() {
+            document.getElementById('open-chapter-nav').style.display = 'none'; 
             document.getElementById("chapter-nav").style.width = "100%";
         }
 
         function closeNav() {
+            document.getElementById('open-chapter-nav').style.display = 'block'; 
             document.getElementById("chapter-nav").style.width = "0%";
         }
 
 
         let queryString = window.location.search;
         let urlParams = new URLSearchParams(queryString);
-        let vol_id = urlParams.get('vol_id');
-        document.title = `Short Doraemon Vol ${vol_id}`;
-        console.log(`Reading Vol ${vol_id}`);
-        load_data(vol_id);
+        let volID = urlParams.get("vol_id");
+        let forward = urlParams.get("forward");
+        let subdir = (forward == "true")? "forward" : "backward";
+        document.title = `Short Doraemon Vol ${volID}`;
+        load_data(subdir, volID);
+
+        document.getElementById('list').setAttribute("href", `doraemon.html?type=short&forward=${forward}`);
 
         document.getElementById('zoom-in').addEventListener('mousedown', function() {
             zoomInterval = setInterval(zoom_in, 20); // Thực hiện hàm zoomIn mỗi 100ms
