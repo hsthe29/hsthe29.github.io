@@ -8,10 +8,39 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 </head>
 <body class="dark-background">
-    <div class="navbar">
-        <a href="../index.html" id="home">Home</a>
+    <!-- <div class="navbar">
+        <a href="./index.html" id="home">Home</a>
         <a id="list">&#9776;</a>
-        <a href="#contact">Contact</a>
+        <div class="vol-navbar">
+            <img src="../icon/left-arrow.png" width="20"/>
+            <p style="width: 200px;">Đây là văn bản của bạn</p>
+            <img src="../icon/right-arrow.png" width="20"/>
+        </div>
+    </div> -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="./index.html" class="nav-icon" id="home">
+                <img src="../icon/home-orange.png" width="30"/>
+            </a>
+            <a id="vol-list" class="nav-icon">
+                <img src="../icon/list.png" width="30"/>
+            </a>
+        </div>
+        <div class="navbar-center">
+            <img src="../icon/left-arrow.png" id="previous-vol" width="20"/>
+            <input readonly id="navbar-text" rows="1" cols="20">
+            <img src="../icon/right-arrow.png" id="next-vol" width="20"/>
+        </div>
+        <div class="navbar-right">
+            <img class="profile" src="../icon/profile.png" alt="Profile Picture">
+        </div>
+    </nav>
+    <div class="main" id="main-page">
+        <div class="image-container" id="image_container"></div>
+        <div class="zoom">
+            <img src="../icon/zoom_in.png" width="50" height="auto" id="zoom-in" onclick="zoom_in()"/>
+            <img src="../icon/zoom_out.png" width="50" height="auto" id="zoom-out" onclick="zoom_out()"/>
+        </div>
     </div>
     <div id="chapter-nav" class="overlay">
         <a class="close-chapter-nav" onclick="closeNav()">&times;</a>
@@ -20,13 +49,6 @@
     </div>
     <div id="open-chapter-nav" class="span-nav">
         <img src="../icon/menu-list.png" height="50" onclick="openNav()"/>
-    </div>
-    <div class="main" id="main-page">
-        <div class="image-container" id="image_container"></div>
-        <div class="zoom">
-            <img src="../icon/zoom_in.png" width="32" height="auto" id="zoom-in" onclick="zoom_in()"/>
-            <img src="../icon/zoom_out.png" width="32" height="auto" id="zoom-out" onclick="zoom_out()"/>
-        </div>
     </div>
     <script>
         const screenWidth = window.innerWidth;
@@ -125,9 +147,19 @@
         let subdir = (forward == "true")? "forward" : "backward";
         document.title = `Short Doraemon Vol ${volID}`;
         load_data(subdir, volID);
-
-        document.getElementById('list').setAttribute("href", `doraemon.html?type=short&forward=${forward}`);
-
+        onclick="location.href='index.html'"
+        document.getElementById('vol-list').setAttribute("href", `doraemon.html?type=short&forward=${forward}`);
+        document.getElementById('navbar-text').setAttribute("value", ` Doraemon Vol.${volID}`);
+        if (volID > 1) {
+            document.getElementById('previous-vol').setAttribute(
+                "onclick", 
+                `location.href="short_vol.html?forward=${forward}&vol_id=${parseInt(volID) - 1}"`);
+        }
+        if (volID < 45) {
+            document.getElementById('next-vol').setAttribute(
+                "onclick", 
+                `location.href="short_vol.html?forward=${forward}&vol_id=${parseInt(volID) + 1}"`);
+        }
         document.getElementById('zoom-in').addEventListener('mousedown', function() {
             zoomInterval = setInterval(zoom_in, 20); // Thực hiện hàm zoomIn mỗi 100ms
         });
