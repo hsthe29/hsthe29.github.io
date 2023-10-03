@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="https://drive.google.com/uc?id=177LiO1ZS5W_EeoYiw5S76Pm6RAgRrkqb" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/css/doraemon.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <script src="../../assets/scripts/doraemon/short-content.js"></script>
+</head>
+<body class="dark-background">
+    <!-- <div class="navbar">
+        <a href="./index.html" id="home">Home</a>
+        <a id="list">&#9776;</a>
+        <div class="vol-navbar">
+            <img src="../icon/left-arrow.png" width="20"/>
+            <p style="width: 200px;">Đây là văn bản của bạn</p>
+            <img src="../icon/right-arrow.png" width="20"/>
+        </div>
+    </div> -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="./index.html" class="nav-icon" id="home">
+                <img src="../../assets/icons/home-orange.png" width="30"/>
+            </a>
+            <a id="vol-list" class="nav-icon">
+                <img src="../../assets/icons/list.png" width="30"/>
+            </a>
+        </div>
+        <div class="navbar-center">
+            <img src="../../assets/icons/left-arrow.png" id="previous-vol" width="20"/>
+            <input readonly id="volume-name" rows="1" size="20">
+            <img src="../../assets/icons/right-arrow.png" id="next-vol" width="20"/>
+        </div>
+        <div class="navbar-right">
+            <img class="profile" src="../../assets/icons/profile.png" alt="Profile Picture">
+        </div>
+    </nav>
+    <div class="content" id="content">
+        <div class="content-list" id="content-list"></div>
+        <div class="zoom">
+            <img src="../../assets/icons/zoom_in.png" width="50" height="auto" id="zoom-in" onclick="zoom_in()"/>
+            <img src="../../assets/icons/zoom_out.png" width="50" height="auto" id="zoom-out" onclick="zoom_out()"/>
+        </div>
+    </div>
+    <div id="chapter-nav" class="overlay">
+        <a class="close-chapter-nav" onclick="closeNav()">&times;</a>
+        <div id="chapter-list" class="overlay-content">
+        </div>
+    </div>
+    <div id="open-chapter-nav" class="span-nav">
+        <img src="../../assets/icons/menu-list.png" height="50" onclick="openNav()"/>
+    </div>
+    <script>
+        loadResource();
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+}
+
+.dark-background {
+    background-color:#5d6792;
+}
+
+.dashboard {
+    display: flex;
+}
+
+.home-1 {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.margin-left-0 {
+    margin-left: 0px;
+}
+
+.category {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+.category-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-img {
+    border-radius: 25px;
+}
+
+.category-img:hover {
+    cursor: pointer;
+}
+.text-center {
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Tạo 5 cột với kích thước bằng nhau */
+    gap: 50px; /* Khoảng cách giữa các ô */
+    width: 90%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cell {
+    /* border: 1px solid black; */
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo chiều ngang */
+    background-color: #76959f;
+}
+
+.cell p {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 6px;
+    color: rgb(255, 255, 255);
+}
+
+.cell .image {
+    /* width: 100px;
+    height: 100px; */
+    border-radius: 15px;
+    overflow: hidden; /* Cắt bớt phần không nằm trong kích thước 100x100 */
+}
+
+.cell .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh luôn nằm đúng kích thước 100x100 mà không bị méo */
+}
+
+.cell .image img:hover {
+    cursor: pointer;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    overflow: hidden;
+    background-color: #66626d;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    margin-left: 10px;
+}
+
+.navbar-right {
+    margin-right: 10px;
+}
+
+.navbar-left {
+    gap: 20px; /* khoảng cách giữa button Home và List */
+}
+
+.navbar-list {
+    display: flex;
+    gap: 10px; /* khoảng cách giữa các item trong List */
+    list-style-type: none; /* bỏ dấu đầu dòng mặc định của List */
+    padding: 0; /* bỏ padding mặc định của List */
+}
+
+.navbar-center {
+    /* width: 50%; */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+    background-color: rgb(184, 236, 139);
+    border-radius: 10px;
+}
+
+.navbar-left a {
+    font-size: 20px;
+    color: floralwhite;
+}
+
+.nav-icon {
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.nav-icon:hover {
+    opacity: 1.0;
+}
+
+.profile {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.zoom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    width: calc(100% - 20px);
+    max-width: 50px;
+    border-radius: 25px;
+    height: auto;
+    background-color: rgb(201, 209, 208);
+}
+
+.zoom img {
+    padding: 10px;
+}
+
+.zoom img:hover {
+    cursor: pointer;
+}
+
+#volume-name {
+    font-family: "Lucida Console";
+    font-size: 20px;
+}
+
+.content {
+    margin-top: 55px;
+}
+
+.content-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-list img {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, 0.92);
+    transition: 0.5s;
+    overflow-x: hidden;
+}
+
+.overlay-content {
+    position: relative;
+    padding-top: 10px;
+    width: 60%;
+    height: 100%;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.overlay-content::-webkit-scrollbar {
+    display: none;
+}
+
+.overlay-content a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #969494;
+    display: block;
+    
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .close-chapter-nav {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.477);
+    cursor: pointer;
+}
+
+.overlay .close-chapter-nav:hover {
+    font-weight: bold;
+}
+
+.span-nav {
+    position: fixed;
+    top: 40%;
+    transform: translate(-75%, 50%);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.span-nav:hover {
+    transform: translate(-50%, 50%);
+}
+
+.no-scroll {
+    overflow: hidden;
+}
