@@ -15,6 +15,10 @@ document.title = `Doraemon Vol ${vol}`;
 const API = `https://script.google.com/macros/s/AKfycbx3jIrLvHGdThMr3zxMjqlY6djw4DHxfwR8sRBzdZy1oU3FHHVlB71eSmx7jF4uEWQG/exec?len=short&type=${type}&vol=${vol}`;
 const driveURL = "https://drive.google.com/uc?id=";
 
+function openGitHub() {
+    window.location.href = "https://github.com/hsthe29";
+}
+
 function load_images(totalPages, chapterPages) {
     let fragmentID = 0;
     const content_list = document.getElementById("content-list");

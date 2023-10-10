@@ -144,6 +144,10 @@ hr.rounded {
     border-radius: 10px;
 }
 
+.navbar-center img:hover {
+    cursor: pointer;
+}
+
 .navbar-left a {
     font-size: 20px;
     color: floralwhite;
@@ -162,6 +166,10 @@ hr.rounded {
     width: 35px;
     height: 35px;
     border-radius: 50%;
+}
+
+.profile:hover {
+    cursor: pointer;
 }
 
 .zoom {
