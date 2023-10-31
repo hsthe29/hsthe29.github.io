@@ -28,12 +28,12 @@
             <img class="profile" src="../../assets/icons/profile.png" onclick="openGitHub()" alt="Profile Picture">
         </div>
     </nav>
+    <div id="zoomContainer">
+        <input type="range" id="zoomSlider" min="20" max="200" value="100" step="5">
+        <span id="zoomValue">100%</span>
+    </div>
     <div class="content" id="content">
         <div class="content-list" id="content-list"></div>
-        <div class="zoom">
-            <img src="../../assets/icons/zoom_in.png" width="50" height="auto" id="zoom-in" onclick="zoom_in()"/>
-            <img src="../../assets/icons/zoom_out.png" width="50" height="auto" id="zoom-out" onclick="zoom_out()"/>
-        </div>
     </div>
     <div id="chapter-nav" class="overlay">
         <a class="close-chapter-nav" onclick="closeNav()">&times;</a>

@@ -1,10 +1,13 @@
 const screenWidth = window.innerWidth;
-const initWidth = 191;
-const initHeight = 300;
+const screenHeight = window.innerHeight;
+const reservedWidth = 191;
+const reservedHeight = 300;
 const maxWidth = 0.9 * screenWidth;
 const minWidth = 0.25 * screenWidth;
-let width = 0.45 * screenWidth;
-let height = initHeight * width / initWidth;
+let baseWidth = 0.45 * screenWidth;
+let baseHeight = reservedHeight * baseWidth / reservedWidth;
+let width = baseWidth;
+let height = baseHeight;
 
 let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
@@ -33,8 +36,8 @@ function load_images(totalPages, chapterPages) {
                 fragmentID++;
             }
             image.src = driveURL + ids[i];
-            image.style.width = `${width}px`;
-            image.style.height = `${height}px`;
+            image.style.width = `${baseWidth}px`;
+            image.style.height = `${baseHeight}px`;
             content_list.appendChild(image);
         }
     }).catch(error => console.error('Error:', error));
@@ -64,14 +67,14 @@ function loadData() {
         .catch(error => console.error('Error:', error));
 }
 
-function resize(deltaWidth) {
+function zoom(percent) {
+    let ratio = percent / 100;
     let oldPosition = window.pageYOffset || document.documentElement.scrollTop;
     let numPages = parseInt(oldPosition / (height + 10));
 
-    let newWidth = width + deltaWidth;
-    if (newWidth > maxWidth || newWidth < minWidth)
-        return;
-    let newHeight = newWidth * height / width;
+    let newWidth = baseWidth*ratio;
+    
+    let newHeight = baseHeight*ratio;
 
     var images = document.getElementById("content-list").getElementsByTagName('img');
 
@@ -88,17 +91,11 @@ function resize(deltaWidth) {
     height = newHeight;
 }
 
-function zoom_in() {
-    resize(10);
-}
-function zoom_out() {
-    resize(-10);
-}
-
 function openNav() {
     document.getElementById('open-chapter-nav').style.display = 'none';
     document.getElementById("chapter-nav").style.width = "100%";
     document.body.classList.add('no-scroll');
+    highlightChapter();
 }
 
 function closeNav() {
@@ -107,7 +104,35 @@ function closeNav() {
     document.body.classList.remove('no-scroll');
 }
 
+function isOverHalf(element_id) {
+    let rect = document.getElementById(element_id).getBoundingClientRect();
+    return rect.top < 0.5*screenHeight;
+}
+
+function highlightChapter() {
+    let chapterOrder = -1;
+    let parent = document.getElementById("chapter-list");
+    let children = Array.from(parent.children);
+    for(let i = 1; i < children.length; i++) {
+        if (isOverHalf("chapter-" + i)) {
+            chapterOrder += 1;
+        }
+        let metaChapter = children[i - 1];
+        metaChapter.text = metaChapter.text.replace("➤ ", "");
+        metaChapter.style.color = "#ffffff";
+    }
+    if (chapterOrder < 0) return;
+    let metaChapter = children[chapterOrder];
+    metaChapter.text = "➤ " + metaChapter.text;
+    metaChapter.style.color = "#ffd500";
+}
+
 function loadResource() {
+    document.getElementById('zoomSlider').addEventListener('input', function(e) {
+    let zoomValue = e.target.value;
+    zoom(parseInt(zoomValue));
+    document.getElementById('zoomValue').innerText = zoomValue + "%";});
+
     document.getElementById('vol-list').setAttribute("href", `../short/?type=${type}`);
     document.getElementById('volume-name').setAttribute("value", ` Doraemon Vol.${vol}`);
     if (vol > 1) {
@@ -121,27 +146,4 @@ function loadResource() {
             `location.href="content.html?type=${type}&vol=${parseInt(vol) + 1}"`);
     }
     loadData(vol);
-    document.getElementById('zoom-in').addEventListener('mousedown', function() {
-        zoomInterval = setInterval(zoom_in, 20); // Thực hiện hàm zoomIn mỗi 100ms
-    });
-
-    document.getElementById('zoom-out').addEventListener('mousedown', function() {
-        zoomInterval = setInterval(zoom_out, 20); // Thực hiện hàm zoomOut mỗi 100ms
-    });
-
-    document.getElementById('zoom-in').addEventListener('mouseup', function() {
-        clearInterval(zoomInterval); // Dừng lại khi người dùng ngừng nhấn nút
-    });
-
-    document.getElementById('zoom-out').addEventListener('mouseup', function() {
-        clearInterval(zoomInterval); // Dừng lại khi người dùng ngừng nhấn nút
-    });
-
-    document.getElementById('zoom-in').addEventListener('mouseleave', function() {
-        clearInterval(zoomInterval); // Dừng lại khi con trỏ chuột rời khỏi nút
-    });
-
-    document.getElementById('zoom-out').addEventListener('mouseleave', function() {
-        clearInterval(zoomInterval); // Dừng lại khi con trỏ chuột rời khỏi nút
-    });
 }

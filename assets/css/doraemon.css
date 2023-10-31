@@ -172,28 +172,6 @@ hr.rounded {
     cursor: pointer;
 }
 
-.zoom {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    right: 20px;
-    bottom: 50px;
-    width: calc(100% - 20px);
-    max-width: 50px;
-    border-radius: 25px;
-    height: auto;
-    background-color: rgb(201, 209, 208);
-}
-
-.zoom img {
-    padding: 10px;
-}
-
-.zoom img:hover {
-    cursor: pointer;
-}
-
 #volume-name {
     font-family: "Lucida Console";
     font-size: 20px;
@@ -283,4 +261,30 @@ hr.rounded {
 
 .no-scroll {
     overflow: hidden;
+}
+
+#zoomSlider {
+    height: 2vh;
+    width: 20vh;
+    background-color: white;
+    transform: rotate(-90deg);
+}
+
+#zoomSlider:hover {
+    cursor: pointer;
+}
+
+#zoomContainer {
+    display: inline-flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: calc(0% + 10vh);
+    right: calc(0% - 7vh);
+}
+
+#zoomValue {
+    transform: translateY(calc(10vh - 50%)); 
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
