@@ -55,6 +55,11 @@ hr.rounded {
     text-align: center;
 }
 
+.white-bold-text {
+    color: white;
+    font-size: 25px;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Tạo 5 cột với kích thước bằng nhau */
