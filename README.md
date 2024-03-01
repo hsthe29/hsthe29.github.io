@@ -1,18 +1,29 @@
-# STANDING ON THE SHOULDERS OF GIANTS
-# Project Doraemon
-**@author: hsthe29**
+<h2 align="center">
+  Portfolio Website<br/>
+  <a href="https://hsthe29.github.io/" target="_blank">hsthe29</a>
+</h2>
+<div align="center">
+  <img alt="Demo" src="./Images/portfolio.png" />
+</div>
+<br/>
 
-The project provides a website to read Doraemon stories. It comes from my hobby of reading Doraemon (and many other series).
+<center>
 
-Structure:
-- Frontend: HTML + CSS + Js
-- Backend: Google Drive, Google Sheets, Google Apps Script
-- Host: GitHub Pages
+Templated by [Soumyajit4419](https://github.com/soumyajit4419/Portfolio). Thanks!
 
-# Update:
-- Short stories: 20 volumes are available.
-- Long stories: 1 volume is available.
+</center>
 
-I'll continue to update other volumes.
+## Built With
 
-# Please give me a star when you visit this project
+My personal portfolio <a href="https://hsthe29.github.io/" target="_blank">hsthe29</a> which features some of my github projects as well as my resume and technical skills.<br/>
+
+This project was built using these technologies.
+
+- React.js
+- Node.js
+- Express.js
+- CSS3
+- VsCode
+- Github Pages
+
+# Give a ⭐ if you like this website!
