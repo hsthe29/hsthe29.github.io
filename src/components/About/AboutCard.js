@@ -11,7 +11,7 @@ function AboutCard() {
             Hi Everyone, I am <span className="purple">Sy The Ho </span>
             from <span className="purple"> Nghe An province, Vietnam.</span>
             <br />
-            I am studying Computer Science (CS) at School of Information and Communication Technology - Hanoi University of Science and Technology.
+            I am a Bachelor of Computer Science (CS) at School of Information and Communication Technology - Hanoi University of Science and Technology.
             <br />
             <br />
             Apart from coding, some other activities that I love to do!
@@ -24,14 +24,14 @@ function AboutCard() {
               <ImPointRight /> Writing Tech Blogs
             </li>
             <li className="about-activity">
-              <ImPointRight /> Travelling
+              <ImPointRight /> Reading Scientific Books
             </li>
           </ul>
 
           <p style={{ color: "rgb(155 126 172)" }}>
-            "Strive to build things that make a difference!"{" "}
+            "Creativity is intelligence having fun"{" "}
           </p>
-          <footer className="blockquote-footer">Soumyajit</footer>
+          <footer className="blockquote-footer">Albert Einstein</footer>
         </blockquote>
       </Card.Body>
     </Card>

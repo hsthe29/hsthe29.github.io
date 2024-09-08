@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.29bc8131.css",
-    "main.js": "/static/js/main.6a9efee4.js",
+    "main.js": "/static/js/main.9319f0ed.js",
     "static/js/415.4d6acbeb.chunk.js": "/static/js/415.4d6acbeb.chunk.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
-    "static/media/sy-the-ho.png": "/static/media/sy-the-ho.8710ce5637b49b37ae19.png",
+    "static/media/Sy-The-Ho.png": "/static/media/Sy-The-Ho.e6ffdbeceaa106f630fd.png",
     "static/media/imageCaptioning.png": "/static/media/imageCaptioning.97f9cba6802d3e1e3dea.png",
     "static/media/translation.png": "/static/media/translation.108d4d4e1ee8188b6a85.png",
-    "static/media/CV.pdf": "/static/media/CV.ea63d09ec483b0dc9fa1.pdf",
     "static/media/estate.png": "/static/media/estate.bf479302c056b0919a45.png",
+    "static/media/SyTheHo_Resume.pdf": "/static/media/SyTheHo_Resume.7e1064e0decdd71aa71b.pdf",
     "static/media/home-main.svg": "/static/media/home-main.359935c39288e92d4dba5c9f2445b91d.svg",
     "static/media/about.png": "/static/media/about.aee0f771fbfc1e7b8fa8.png",
     "static/media/chessAI.png": "/static/media/chessAI.760ed177964a14d399c9.png",
@@ -19,12 +19,12 @@
     "static/media/pre.svg": "/static/media/pre.4410c5baaa673cc131da.svg",
     "index.html": "/index.html",
     "main.29bc8131.css.map": "/static/css/main.29bc8131.css.map",
-    "main.6a9efee4.js.map": "/static/js/main.6a9efee4.js.map",
+    "main.9319f0ed.js.map": "/static/js/main.9319f0ed.js.map",
     "415.4d6acbeb.chunk.js.map": "/static/js/415.4d6acbeb.chunk.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.29bc8131.css",
-    "static/js/main.6a9efee4.js"
+    "static/js/main.9319f0ed.js"
   ]
 }

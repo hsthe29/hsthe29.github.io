@@ -1,10 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import myImg from "../../Assets/sy-the-ho.png";
+import myImg from "../../Assets/Sy-The-Ho.png";
 import Tilt from "react-parallax-tilt";
 import {
   AiFillGithub,
-  AiOutlineTwitter,
   AiFillInstagram,
   AiFillFacebook
 } from "react-icons/ai";
@@ -20,41 +19,17 @@ function Home2() {
               <span className="purple"> <strong>INTRODUCTION</strong></span>
             </h1>
             <p className="home-about-body">
-              Hi, my name is Sy The Ho (Hồ Sỹ Thế). I'm studying Computer Science at School of Information and Communication Technology - Hanoi University of Science and Technology.
+              Hi, my name is Sy The Ho (Hồ Sỹ Thế). I'm a <b className="purple">Bachelor of Computer Science</b> at School of Information and Communication Technology - Hanoi University of Science and Technology (SoICT-HUST) with <b className="purple">3.78</b> CPA points.
               <br />
               <br />
-              I am passionate about 
-              <i>
+              My field of Interest's are
                 <b className="purple"> AI </b>
-              </i> (especially 
-              <i>
-                <b className="purple"> NLP </b>
-              </i>and 
-              <i>
-                <b className="purple"> CV</b>
-              </i>) you can find some AI projects I have worked on <span className="purple"> <strong>Projects</strong></span> tab.
+              and <b className="purple">MLOps</b>. You can find some AI projects I have worked on <span className="purple"> <strong>Projects</strong></span> tab.
               <br />
               <br />
-              I have a good basic understanding of classic programming languages
-              <i>
-                <b className="purple"> Python, Java, C++ </b>
-              </i>
-               and modern ones
-              <i>
-                <b className="purple"> Kotlin, Rust</b>
-              </i>.
+              I work in the field of <b className="purple">AI NLP</b> (<b className="purple">Research</b> and <b className="purple">Ops</b>). My work is about <b className="purple">Chatbots</b> and <b className="purple">Language Models</b> (<b className="purple">Text Embedding</b> and <b className="purple">Chat</b> models).
               <br />
               <br />
-              <i>
-                <b className="purple">Computer Vision </b> and <b className="purple"> NLP </b> are two main fields I want to specialize. And also interests in new {" "}
-                <b className="purple">
-                Web Technologies
-                </b>.
-              </i>
-              <br />
-              <br />
-              I want to have more and more knowledge about my field to apply in life to make these technologies more practical.
-              
             </p>
           </Col>
           <Col md={4} className="myAvtar">
@@ -92,7 +67,7 @@ function Home2() {
               </li>
               <li className="social-icons">
                 <a
-                  href="https://www.linkedin.com/in/sy-the-ho-ba02282b7/"
+                  href="https://www.linkedin.com/in/sy-the-ho-hst2901y02"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour  home-social-icons"
@@ -102,7 +77,7 @@ function Home2() {
               </li>
               <li className="social-icons">
                 <a
-                  href="https://www.instagram.com/the.hosy"
+                  href="https://www.instagram.com/sythe.ho"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour home-social-icons"

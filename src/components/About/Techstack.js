@@ -3,7 +3,6 @@ import { Col, Row } from "react-bootstrap";
 import { CgCPlusPlus } from "react-icons/cg";
 import {
   DiJavascript1,
-  DiReact,
   DiNodejs,
   DiMongodb,
   DiPython,
@@ -14,17 +13,12 @@ import {
 import {
   SiKotlin,
   SiRust,
-  SiRedis,
-  SiFirebase,
-  SiNextdotjs,
-  SiSolidity,
-  SiPostgresql,
   SiTensorflow,
   SiPytorch,
   SiPandas,
-  SiScikitlearn
+  SiScikitlearn,
 } from "react-icons/si";
-import { TbBrandGolang } from "react-icons/tb";
+// import { TbBrandGolang } from "react-icons/tb";
 
 function Techstack() {
   return (
@@ -33,6 +27,12 @@ function Techstack() {
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
           <DiPython />
           <span style={{"font-size": "15px"}}>Python</span>
+        </div>
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+          <SiRust />
+          <span style={{"font-size": "15px"}}>Rust</span>
         </div>
       </Col>
       <Col xs={4} md={2} className="tech-icons">
@@ -57,12 +57,6 @@ function Techstack() {
         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
           <SiKotlin />
           <span style={{"font-size": "15px"}}>Kotlin</span>
-        </div>
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-          <SiRust />
-          <span style={{"font-size": "15px"}}>Rust</span>
         </div>
       </Col>
       <Col xs={4} md={2} className="tech-icons">
