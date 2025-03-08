@@ -15,7 +15,7 @@ btnNo.addEventListener('click', () => {
   banner.classList.add('disable')
   gatinhoBravo.classList.remove('disable')
   jasna.classList.add('disable')
-  title.textContent = "REALLY? I DO NOT BELIEVE. IF YOU DON'T LOVE ME, LEAVE ME AWAY"
+  title.textContent = "Really? I don't believe. If you don't love me, leave me away :("
 })
 
 function desvia(btn) {
