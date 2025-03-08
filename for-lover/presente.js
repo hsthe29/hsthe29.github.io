@@ -12,9 +12,30 @@ function abrir() {
   title.classList.remove('disable')
   balaos.classList.remove('disable')
 
-  setTimeout(() => {
-    yt()
-  }, 7000);
+  const icons = ['❤️', '🌺', '🎁', '💐', '✨'];
+  const container = document.getElementById('icon-container');
+
+  function createIcon() {
+      const iconElement = document.createElement('div');
+      iconElement.classList.add('icon');
+      iconElement.innerText = icons[Math.floor(Math.random() * icons.length)];
+      iconElement.style.left = `${Math.random() * 100}vw`;
+      container.appendChild(iconElement);
+
+      iconElement.addEventListener('animationend', () => {
+          iconElement.remove();
+      });
+  }
+
+  setInterval(createIcon, 500);
+
+  setTimeout(function() {
+    document.getElementById("myAudio").play();
+  }, 2000); // Phát nhạc sau 2 giây
+
+  // setTimeout(() => {
+  //   yt()
+  // }, 7000);
 }
 
 function yt() {
